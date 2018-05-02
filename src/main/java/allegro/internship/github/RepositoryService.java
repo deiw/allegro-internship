@@ -15,7 +15,7 @@ public class RepositoryService {
 
     Repository getLastModifiedRepository() {
         Repository[] repositories = Optional.ofNullable(restTemplate.getForObject(REPOS_URL + "?sort=pushed", Repository[].class))
-                .orElseThrow(GitHubUnavailable::new);
+                .orElseThrow(GitHubUnavailableError::new);
 
         return Arrays.stream(repositories)
                 .findFirst()

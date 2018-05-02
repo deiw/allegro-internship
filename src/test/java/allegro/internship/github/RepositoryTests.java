@@ -18,7 +18,7 @@ public class RepositoryTests {
     @InjectMocks
     private RepositoryService repositoryService;
 
-    @Test(expected = GitHubUnavailable.class)
+    @Test(expected = GitHubUnavailableError.class)
     public void forNullResponse_shouldThrowAssertionError() {
         when(restTemplate.getForObject(anyString(), eq(Repository[].class))).thenReturn(null);
 
