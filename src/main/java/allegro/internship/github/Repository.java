@@ -11,7 +11,7 @@ import java.time.OffsetDateTime;
 @AllArgsConstructor
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Repository {
+class Repository {
 
     private String name;
     @JsonProperty(value = "pushed_at")
