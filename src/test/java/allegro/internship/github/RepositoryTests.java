@@ -7,7 +7,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.web.client.RestTemplate;
+
 import java.time.OffsetDateTime;
+
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
@@ -43,18 +45,19 @@ public class RepositoryTests {
     }
 
     @Test
-    public void afterSuccessfullyResponse_shouldReturnRepository() {
+    public void afterSuccessfullyResponse_shouldReturnFirstRepository() {
         //setup
+        Repository firstRepo = new Repository("FirstRepo", OffsetDateTime.now());
+        Repository secondRepo = new Repository("SecondRepo", OffsetDateTime.now());
+        Repository thirdRepo = new Repository("ThirdRepo", OffsetDateTime.now());
         when(restTemplate.getForObject(anyString(), eq(Repository[].class))).thenReturn(new Repository[]{
-                new Repository("FirstRepo", OffsetDateTime.now()),
-                new Repository("SecondRepo", OffsetDateTime.now().minusDays(1)),
-                new Repository("ThirdRepo", OffsetDateTime.now().plusHours(1))
+                firstRepo, secondRepo, thirdRepo
         });
 
         //execute
         Repository lastModifiedRepository = repositoryService.getLastModifiedRepository();
 
         //verify
-        Assert.assertNotNull(lastModifiedRepository);
+        Assert.assertEquals(firstRepo, lastModifiedRepository);
     }
 }
