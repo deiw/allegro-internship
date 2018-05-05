@@ -8,7 +8,7 @@ import java.util.Optional;
 
 @Service
 @AllArgsConstructor
-public class RepositoryService {
+class RepositoryService {
 
     private final RestTemplate restTemplate;
     private static final String REPOS_URL = "https://api.github.com/users/allegro/repos";
