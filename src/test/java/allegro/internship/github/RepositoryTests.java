@@ -46,9 +46,7 @@ public class RepositoryTests {
     public void afterSuccessfullyResponse_shouldReturnRepository() {
         //setup
         Repository firstRepo = new Repository("FirstRepo", OffsetDateTime.now());
-        when(restTemplate.getForObject(anyString(), eq(Repository[].class))).thenReturn(new Repository[]{
-                firstRepo
-        });
+        when(restTemplate.getForObject(anyString(), eq(Repository[].class))).thenReturn(new Repository[]{firstRepo});
 
         //execute
         Repository lastModifiedRepository = repositoryService.getLastModifiedRepository();
