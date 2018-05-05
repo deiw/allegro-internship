@@ -14,8 +14,8 @@ public class RepositoryService {
     private static final String REPOS_URL = "https://api.github.com/users/allegro/repos";
 
     Repository getLastModifiedRepository() {
-        Repository[] repositories = Optional.ofNullable(restTemplate.getForObject(REPOS_URL + "?sort=pushed", Repository[].class))
-                .orElseThrow(GitHubUnavailableError::new);
+        Repository[] repositories = Optional.ofNullable(restTemplate.getForObject(REPOS_URL + "?sort=pushed&per_page=1", Repository[].class))
+                .orElseThrow(GitHubInternalError::new);
 
         return Arrays.stream(repositories)
                 .findFirst()

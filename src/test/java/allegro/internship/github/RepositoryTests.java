@@ -20,7 +20,7 @@ public class RepositoryTests {
     @InjectMocks
     private RepositoryService repositoryService;
 
-    @Test(expected = GitHubUnavailableError.class)
+    @Test(expected = GitHubInternalError.class)
     public void forNullResponse_shouldThrowAssertionError() {
         //setup
         when(restTemplate.getForObject(anyString(), eq(Repository[].class))).thenReturn(null);
@@ -43,13 +43,11 @@ public class RepositoryTests {
     }
 
     @Test
-    public void afterSuccessfullyResponse_shouldReturnFirstRepository() {
+    public void afterSuccessfullyResponse_shouldReturnRepository() {
         //setup
         Repository firstRepo = new Repository("FirstRepo", OffsetDateTime.now());
-        Repository secondRepo = new Repository("SecondRepo", OffsetDateTime.now());
-        Repository thirdRepo = new Repository("ThirdRepo", OffsetDateTime.now());
         when(restTemplate.getForObject(anyString(), eq(Repository[].class))).thenReturn(new Repository[]{
-                firstRepo, secondRepo, thirdRepo
+                firstRepo
         });
 
         //execute
